@@ -1,0 +1,51 @@
+name: Atualizar EPG Diariamente
+
+on:
+  schedule:
+    # Roda todos os dias às 03:00 UTC (Meia-noite no horário de Brasília)
+    - cron: '0 3 * * *'
+  workflow_dispatch: # Permite que você clique num botão e rode o script manualmente quando quiser
+
+jobs:
+  build-and-run:
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: write # Dá permissão para o bot salvar o arquivo XML atualizado de volta no repositório
+
+    steps:
+    - name: Baixar Código do Repositório
+      uses: actions/checkout@v4
+
+    - name: Configurar o Python no Servidor
+      uses: actions/setup-python@v5
+      with:
+        python-version: '3.x'
+
+    - name: Instalar Dependências do Script
+      run: |
+        python -m pip install --upgrade pip
+        pip install requests
+
+    - name: Executar Script de Extração do EPG
+      run: python generate_epg.py
+
+    - name: Validar se o arquivo XML foi modificado
+      id: verify_changed
+      run: |
+        git status --porcelain
+        if [ -n "$(git status --porcelain)" ]; then
+          echo "changed=true" >> $GITHUB_OUTPUT
+        else
+          echo "changed=false" >> $GITHUB_OUTPUT
+        fi
+
+    - name: Salvar EPG Atualizado no Repositório (Commit e Push)
+      if: steps.verify_changed.outputs.changed == 'true'
+      run: |
+        git config --local user.email "github-actions[bot]@users.noreply.github.com"
+        git config --local user.name "github-actions[bot]"
+        git add localnow_epg.xml
+        git commit -m "Auto: Guia EPG do Local Now Atualizado ✅ [Workflow]"
+        git push
+        
