@@ -1,6 +1,6 @@
 # 📺 Local Now - EPG & Playlist Engine
 
-[![Atualizar EPG Diariamente](https://github.com/JulioCesarXY/EPG-LocalNow/actions/workflows/update_epg.yml/badge.svg)](https://github.com/JulioCesarXY/EPG-LocalNow/actions/workflows/update_epg.yml)
+[![Atualizar EPG](https://github.com/JulioCesarXY/EPG-LocalNow/actions/workflows/update_epg.yml/badge.svg)](https://github.com/JulioCesarXY/EPG-LocalNow/actions/workflows/update_epg.yml)
 
 Este projeto automatiza a extração da grade de programação (**EPG**) do serviço Local Now, gerando guias de programação no formato padrão XMLTV compatíveis com os principais players de IPTV do mercado (Tivimate, IPTV Smarters, Perfect Player, Next.js Custom Players, etc.).
 
