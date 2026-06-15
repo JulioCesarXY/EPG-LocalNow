@@ -43,8 +43,8 @@ jobs:
     - name: Salvar EPG Atualizado no Repositório (Commit e Push)
       if: steps.verify_changed.outputs.changed == 'true'
       run: |
-        git config --local user.email "github-actions[bot]@users.noreply.github.com"
-        git config --local user.name "github-actions[bot]"
+        git config --local user.email "104462712+JulioCesarXY@users.noreply.github.com"
+        git config --local user.name "JulioCesarXY"
         git add localnow_epg.xml
         git commit -m "Auto: Guia EPG do Local Now Atualizado ✅ [Workflow]"
         git push
